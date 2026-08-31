@@ -1,14 +1,15 @@
 # VLOO payment document template kit
 
-This kit replaces the legacy receipt files with one shared visual system and five logical documents:
+This kit replaces the legacy receipt files with one shared visual system and six logical documents:
 
 1. `user-receipt` - emailed after payment and downloadable from Payment completed / Booking history.
 2. `user-booking-confirmation` - the user's confirmed-booking record, downloadable while payment is pending or from Booking history.
 3. `host-booking-confirmation` - the host's operational record of the confirmed booking, guest, access, and expected booking value.
 4. `host-payout-statement` - emailed after payout and downloadable from Payouts / Booking history.
 5. `commission-deduction-statement` - VLOO's accounting document for the 15% commission, 25% VAT on that commission, and the amount already deducted from payout.
+6. `credit-note` - the refund accounting document, linked to the original receipt and showing the reversed booking charges, VAT, refund method, and Stripe refund reference.
 
-The approved reference is `designs/VLOO-payment-document-template-preview.pdf`. It contains five Flex examples followed by five Extended Stay examples. `build_preview.py` is the deterministic ReportLab source used to generate that PDF.
+The approved reference is `designs/VLOO-payment-document-template-preview.pdf`. It contains five Flex examples, five Extended Stay examples, and one Flex refund credit note. `build_preview.py` is the deterministic ReportLab source used to generate that PDF.
 
 The PDF is the visual acceptance reference, not the production rendering engine. Developers should implement equivalent server-side HTML/CSS or reusable PDF components using the data and variant rules below.
 
