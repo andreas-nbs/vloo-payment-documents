@@ -35,7 +35,7 @@ The generated file is written to `output/pdf/VLOO-payment-document-template-prev
 
 Use data conditions, not separate layouts:
 
-- `booking.type = flex | extended_stay` changes the title, date section, and billing schedule.
+- `booking.type = flex | extended_stay` changes the title and date section. Extended Stay confirmations show the full stay, booked weekdays, access time, desk quantity, and current paid billing period; they do not need a speculative future billing schedule.
 - `host.vat_registered = true` shows subtotal excluding VAT, VAT rate/amount, and the host's MVA suffix.
 - `host.vat_registered = false` hides rental VAT columns/rows and adds: "The host is not VAT registered. No VAT has been charged on this rental."
 - VLOO commission VAT remains visible in host payout bookkeeping because VLOO AS is VAT registered; non-VAT-registered hosts should see that input VAT is not deductible.
@@ -51,6 +51,8 @@ Receipt: Stripe payment ID, payment date/method, line items, subtotal, VAT rate/
 User booking confirmation: booking status, dates/times, workspace, guest count, access, amenities, cancellation terms, and price at booking.
 
 Host booking confirmation: guest contact details, party size, booking status, access and preparation notes, gross value, expected VLOO fee, expected net payout, and payout timing.
+
+For Extended Stay, generate and send the host booking confirmation immediately after the user's upfront payment succeeds and the booking changes to `confirmed`. Host approval or the upfront-payment request alone must not generate a host booking confirmation.
 
 Host payout: Stripe payout ID/date, booking lines, gross collected, VLOO fee excluding and including VAT, net payout, and bookkeeping totals.
 
