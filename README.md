@@ -1,6 +1,6 @@
 # VLOO payment document template kit
 
-This kit replaces the legacy receipt files with one shared visual system and six logical documents:
+This kit replaces the legacy receipt files with one shared visual system and seven logical documents:
 
 1. `user-receipt` - emailed after payment and downloadable from Payment completed / Booking history.
 2. `user-booking-confirmation` - the user's confirmed-booking record, downloadable while payment is pending or from Booking history.
@@ -8,8 +8,9 @@ This kit replaces the legacy receipt files with one shared visual system and six
 4. `host-payout-statement` - emailed after payout and downloadable from Payouts / Booking history.
 5. `commission-deduction-statement` - VLOO's accounting document for the 15% commission, 25% VAT on that commission, and the amount already deducted from payout.
 6. `credit-note` - the refund accounting document, linked to the original receipt and showing the reversed booking charges, VAT, refund method, and Stripe refund reference.
+7. `cancellation-record` - the non-accounting record of a Flex or Extended Stay cancellation, including what was cancelled, what remains active, and any related refund status.
 
-The approved reference is `designs/VLOO-payment-document-template-preview.pdf`. It contains five Flex examples, five Extended Stay examples, and one Flex refund credit note. `build_preview.py` is the deterministic ReportLab source used to generate that PDF.
+The approved reference is `designs/VLOO-payment-document-template-preview.pdf`. It contains five Flex examples, five Extended Stay payment/confirmation examples, one refund credit note, two cancellation records, and two consolidated monthly host settlement examples at the end. `build_preview.py` is the deterministic ReportLab source used to generate that PDF.
 
 The PDF is the visual acceptance reference, not the production rendering engine. Developers should implement equivalent server-side HTML/CSS or reusable PDF components using the data and variant rules below.
 
@@ -58,6 +59,10 @@ Host payout: Stripe payout ID/date, booking lines, gross collected, VLOO fee exc
 
 Commission deduction: related booking and payout IDs, commission base, 15% rate, commission excluding VAT, 25% VAT on commission, total deducted, and amount payable (zero when already deducted).
 
+Production settlement rule: create one monthly Host Payout Statement and one matching VLOO Commission Deduction Statement per host. Both documents include Flex and Extended Stay consumption, share one settlement/payout reference, and are generated from the same canonical lines. Flex quantities use booked days; Extended Stay quantities use desks multiplied by chargeable days. Do not generate separate payout documents by booking type.
+
+Cancellation record: cancellation request and confirmation timestamps, the original booking, cancelled and remaining access, capacity, payment impact, and refund or Credit Note status. Flex records list every booked date and its outcome; Extended Stay records show the effective end date and affected billing periods.
+
 ## Product placement
 
 | Portal area | User download | Host download |
@@ -65,6 +70,8 @@ Commission deduction: related booking and payout IDs, commission base, 15% rate,
 | Payment completed / Payouts | Receipt | Host payout statement |
 | Payment pending | User booking confirmation / copy | Host booking confirmation / copy |
 | Booking history | User booking confirmation plus receipt when paid | Host booking confirmation plus payout and commission statements when available |
+| Cancelled Extended Stay | Cancellation record, original receipt, and Credit Note when a refund applies | Cancellation record or equivalent portal record |
+| Cancelled Flex stay | Cancellation record, original receipt, and Credit Note when a refund applies | Cancellation record or equivalent portal record |
 
 ## Important content correction from legacy files
 
