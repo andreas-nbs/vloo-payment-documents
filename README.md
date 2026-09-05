@@ -10,7 +10,7 @@ This kit replaces the legacy receipt files with one shared visual system and sev
 6. `credit-note` - the refund accounting document, linked to the original receipt and showing the reversed booking charges, VAT, refund method, and Stripe refund reference.
 7. `cancellation-record` - the non-accounting record of a Flex or Extended Stay cancellation, including what was cancelled, what remains active, and any related refund status.
 
-The approved reference is `designs/VLOO-payment-document-template-preview.pdf`. It contains five Flex examples, five Extended Stay payment/confirmation examples, one refund credit note, two cancellation records, and two consolidated monthly host settlement examples at the end. `build_preview.py` is the deterministic ReportLab source used to generate that PDF.
+The approved reference is `designs/VLOO-payment-document-template-preview.pdf`. It contains the user and host booking documents for both stay types, one refund credit note, two cancellation records, and—at the end—one consolidated monthly Host Payout Statement plus one consolidated VLOO Commission Deduction Statement. No booking-type-specific payout or commission statements are included. `build_preview.py` is the deterministic ReportLab source used to generate that PDF.
 
 The PDF is the visual acceptance reference, not the production rendering engine. Developers should implement equivalent server-side HTML/CSS or reusable PDF components using the data and variant rules below.
 

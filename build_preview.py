@@ -214,7 +214,10 @@ doc.build(story)
 from pypdf import PdfReader, PdfWriter
 reader = PdfReader(OUT)
 writer = PdfWriter()
-for page_index in [0, 2, 3, 1, 4, 5, 7, 8, 6, 9, 11, 10, 12, 13, 14]:
+# Publish only the current document set. The four booking-type-specific payout and
+# commission examples are intentionally excluded; pages 9 and 10 below are the
+# single consolidated monthly host statements used for both booking types.
+for page_index in [0, 2, 3, 5, 7, 8, 11, 10, 12, 13, 14]:
     writer.add_page(reader.pages[page_index])
 with open(OUT, "wb") as stream:
     writer.write(stream)
